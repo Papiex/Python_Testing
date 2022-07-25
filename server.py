@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from flask import Flask, render_template, request, redirect, flash, url_for
 
@@ -30,7 +31,9 @@ def index():
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
     club = [club for club in clubs if club["email"] == request.form["email"]][0]
-    return render_template("welcome.html", club=club, competitions=competitions)
+    date = datetime.datetime.now()
+    date_string = date.strftime("%Y-%m-%d %H:%M:%S")
+    return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
 
 
 @app.route("/book/<competition>/<club>")
