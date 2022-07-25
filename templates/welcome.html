@@ -20,7 +20,6 @@
     <ul>
         {% for comp in competitions%}
         <li>
-<<<<<<< HEAD
             {{ comp['name'] }}<br/>
             Date: {{ comp['date'] }}</br>
             Number of Places: {{ comp['numberOfPlaces'] }}
@@ -29,14 +28,6 @@
             {% elif comp['numberOfPlaces']|int > 0 %}
                 <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
             {% endif %}
-=======
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
->>>>>>> parent of b1e041d (cleaning server.py with black and cleaning html files)
         </li>
         <hr />
         {% endfor %}
