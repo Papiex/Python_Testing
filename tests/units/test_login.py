@@ -18,6 +18,7 @@ def test_should_return_200_with_known_email(client):
     data = {"email": "john@simplylift.co"}
     response = client.post("/showSummary", data=data, follow_redirects=True)
     assert response.status_code == 200
+    assert "Welcome, john@simplylift.co" in response.text
 
 
 def test_should_return_302_on_logout(client):
