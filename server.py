@@ -3,24 +3,28 @@ import json
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
-def loadClubs():
-    with open("clubs.json") as c:
+def loadClubs(clubs):
+    with open(clubs) as c:
         listOfClubs = json.load(c)["clubs"]
         return listOfClubs
 
 
-def loadCompetitions():
-    with open("competitions.json") as comps:
+def loadCompetitions(competitions):
+    with open(competitions) as comps:
         listOfCompetitions = json.load(comps)["competitions"]
         return listOfCompetitions
 
 
 def create_app(config={}):
     app = Flask(__name__)
+    app.config.update(config)
     app.secret_key = "something_special"
-
-    competitions = loadCompetitions()
-    clubs = loadClubs()
+    if app.config['TESTING'] == True:
+        competitions = loadCompetitions("tests/competitions_test.json")
+        clubs = loadClubs("tests/clubs_test.json")
+    else:
+        competitions = loadCompetitions("competitions.json")
+        clubs = loadClubs("clubs.json")
 
 
     @app.route("/")
