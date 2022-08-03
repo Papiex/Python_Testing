@@ -4,6 +4,7 @@ def test_should_return_200_on_login_page(client):
 
     response = client.get('/')
     assert response.status_code == 200
+    assert "Welcome to the GUDLFT Registration Portal!" in response.text
 
 
 def test_should_return_401_with_unknown_mail(client):
