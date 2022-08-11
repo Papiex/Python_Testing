@@ -29,4 +29,11 @@ def test_should_raise_error(client):
 
     response = client.get('book/Futur Competition/Simply Bug')
     assert 'Something went wrong-please try again' in response.text
+
+
+def test_should_return_200_on_booking(client):
+
+    response = client.get('book/Test Competition/Simply Lift')
+    assert response.status_code == 200
+    assert 'Test Competition' in response.text
     
