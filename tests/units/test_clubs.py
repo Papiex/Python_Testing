@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_should_not_take_more_than_12_places(client):
     
     response = client.post('/purchasePlaces', data = {
@@ -20,3 +23,10 @@ def test_should_not_accept_negative_numbers(client):
     
     assert response.status_code == 200
     assert 'You cannot enter negative number' in response.text
+
+
+def test_should_raise_error(client):
+
+    response = client.get('book/Futur Competition/Simply Bug')
+    assert 'Something went wrong-please try again' in response.text
+    
