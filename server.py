@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from flask import Flask, render_template, request, redirect, flash, url_for
 
@@ -13,7 +14,6 @@ def loadCompetitions(competitions):
     with open(competitions) as comps:
         listOfCompetitions = json.load(comps)["competitions"]
         return listOfCompetitions
-
 
 def create_app(config={}):
     app = Flask(__name__)
@@ -44,15 +44,16 @@ def create_app(config={}):
 
     @app.route("/book/<competition>/<club>")
     def book(competition, club):
-        foundClub = [c for c in clubs if c["name"] == club][0]
-        foundCompetition = [c for c in competitions if c["name"] == competition][0]
-        if foundClub and foundCompetition:
+        date = datetime.datetime.now()
+        date_string = date.strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            foundClub = [c for c in clubs if c["name"] == club][0]
+            foundCompetition = [c for c in competitions if c["name"] == competition][0]
             return render_template(
-                "booking.html", club=foundClub, competition=foundCompetition
-            )
-        else:
-            flash("Something went wrong-please try again")
-            return render_template("welcome.html", club=club, competitions=competitions)
+                "booking.html", club=foundClub, competition=foundCompetition)
+        except IndexError:
+                flash("Something went wrong-please try again")
+                return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
 
 
     @app.route("/purchasePlaces", methods=["POST"])
@@ -68,6 +69,12 @@ def create_app(config={}):
         elif int(competition["numberOfPlaces"]) < placesRequired:
             flash("This competition does not have enough places")
             render_template("booking.html", club=club, competition=competition)
+        elif int(request.form['places']) > 12:
+            flash('You cannot take more than 12 places')
+            render_template('booking.html', club=club, competition=competition)
+        elif '-' in request.form['places']:
+            flash('You cannot enter negative number')
+            render_template('booking.html', club=club, competition=competition)
         else:
             competition["numberOfPlaces"] = (
                 int(competition["numberOfPlaces"]) - placesRequired
