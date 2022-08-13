@@ -106,3 +106,9 @@ def test_should_not_buy_past_competition(client):
     response = client.post('/showSummary', data = {"email": "john@simplylift.co"})
     assert response.status_code == 200
     assert 'The competition Past Competition is already passed' in response.text
+
+
+def test_should_return_200_on_board(client):
+    response = client.get('/displayBoard')
+    assert response.status_code == 200
+    assert 'GUDLFT Display Clubs Board !' in response.text

@@ -6,10 +6,15 @@
 </head>
 <body>
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
+<<<<<<< HEAD
     {% if error %}
         <li>{{ error }}</li>
     {% endif %}
     Please enter your secretary email to continue:
+=======
+    <a href="{{url_for('displayBoard')}}">Clubs Board</a>
+    <p>Please enter your secretary email to continue:</p>
+>>>>>>> feature/issue#7
     <form action="showSummary" method="post">
         <label for="email">Email:</label>
         <input type="email" name="email" id=""/>
