@@ -14,6 +14,16 @@
             "name": "Test Competition",
             "date": "2026-10-22 13:30:00",
             "numberOfPlaces": "8"
+        },
+        {
+            "name": "Future Competition",
+            "date": "2027-10-22 13:30:00",
+            "numberOfPlaces": "14"
+        },
+        {
+            "name": "Past Competition",
+            "date": "2015-10-22 13:30:00",
+            "numberOfPlaces": "14"
         }
     ]
 }

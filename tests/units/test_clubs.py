@@ -41,8 +41,7 @@ def test_should_deduct_competition_points(client):
 
     response = client.post('/purchasePlaces', data=data)
     assert response.status_code == 200
-    assert ('Number of Places: 6' + '\n            \n                '
-    + '<a href="/book/Test%20Competition/Simply%20Lift">') in response.text
+    assert ('''Number of Places: 6\n                \n                    <a href="/book/Test%20Competition/Simply%20Lift''') in response.text
 
 
 def test_should_deduct_club_points(client):
@@ -93,3 +92,17 @@ def test_should_return_200_on_booking(client):
     response = client.get('book/Test Competition/Simply Lift')
     assert response.status_code == 200
     assert 'Test Competition' in response.text
+
+
+def test_should_buy_actual_competition(client):
+    """test for taking places in actual competition"""
+    response = client.post('/showSummary', data = {"email": "john@simplylift.co"})
+    assert response.status_code == 200
+    assert 'The competition Future Competition is already passed' not in response.text
+
+
+def test_should_not_buy_past_competition(client):
+    """test for taking places in past competition"""
+    response = client.post('/showSummary', data = {"email": "john@simplylift.co"})
+    assert response.status_code == 200
+    assert 'The competition Past Competition is already passed' in response.text

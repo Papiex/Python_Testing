@@ -34,9 +34,11 @@ def create_app(config={}):
 
     @app.route("/showSummary", methods=["POST"])
     def showSummary():
+        date = datetime.datetime.now()
+        date_string = date.strftime("%Y-%m-%d %H:%M:%S")
         try:
             club = [club for club in clubs if club["email"] == request.form["email"]][0]
-            return render_template("welcome.html", club=club, competitions=competitions)
+            return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
         except IndexError:
             error = "Sorry, that email wasn't found."
             return render_template("index.html", error=error), 401
@@ -58,6 +60,8 @@ def create_app(config={}):
 
     @app.route("/purchasePlaces", methods=["POST"])
     def purchasePlaces():
+        date = datetime.datetime.now()
+        date_string = date.strftime("%Y-%m-%d %H:%M:%S")
         competition = [c for c in competitions if c["name"] == request.form["competition"]][
             0
         ]
@@ -81,7 +85,7 @@ def create_app(config={}):
             )
             club["points"] = int(club["points"]) - placesRequired
             flash("Great-booking complete!")
-        return render_template("welcome.html", club=club, competitions=competitions)
+        return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
 
 
     # TODO: Add route for points display
