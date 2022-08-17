@@ -3,7 +3,7 @@ def test_should_purchase_place(client):
     response = client.post('/purchasePlaces', data = {
       "club": "Simply Lift",
       "competition": "Spring Festival",
-      "places": 10
+      "places": 1
     })
     assert response.status_code == 200
     assert 'Great-booking complete!' in response.text
@@ -23,7 +23,7 @@ def test_should_not_enought_club_points(client):
 def test_should_not_enought_competition_points(client):
     """Test buy more places than available"""
     response = client.post('/purchasePlaces', data = {
-      "club": "Simply Lift",
+      "club": "Test Club",
       "competition": "Test Competition",
       "places": 12
     })
@@ -45,7 +45,10 @@ def test_should_deduct_competition_points(client):
 
 
 def test_should_deduct_club_points(client):
-    """Test for deduct 2 points of Simply Lift club """
+    """
+    Test for buy 2 place and deduct 6 points of Simply Lift club
+    Default club points : 13
+    """
     data = {
       "club": "Simply Lift",
       "competition": "Test Competition",
@@ -54,14 +57,14 @@ def test_should_deduct_club_points(client):
 
     response = client.post('/purchasePlaces', data=data)
     assert response.status_code == 200
-    assert 'Points available: 11' in response.text
+    assert 'Points available: 7' in response.text
 
 
 def test_should_not_take_more_than_12_places(client):
     
     response = client.post('/purchasePlaces', data = {
         "competition": "Spring Festival",
-        "club": "Simply Lift",
+        "club": "Test Club",
         "places": 13
         })
     
