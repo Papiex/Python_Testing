@@ -67,7 +67,7 @@ def create_app(config={}):
         ]
         club = [c for c in clubs if c["name"] == request.form["club"]][0]
         placesRequired = int(request.form["places"])
-        if int(club["points"]) < placesRequired:
+        if int(club["points"]) < placesRequired * 3:
             flash("You cannot use more points then you have !")
             render_template("booking.html", club=club, competition=competition)
         elif int(competition["numberOfPlaces"]) < placesRequired:
@@ -83,7 +83,7 @@ def create_app(config={}):
             competition["numberOfPlaces"] = (
                 int(competition["numberOfPlaces"]) - placesRequired
             )
-            club["points"] = int(club["points"]) - placesRequired
+            club["points"] = int(club["points"]) - placesRequired * 3
             flash("Great-booking complete!")
         return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
 
