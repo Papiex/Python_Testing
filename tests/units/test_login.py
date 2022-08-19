@@ -1,5 +1,3 @@
-
-
 def test_should_return_200_on_login_page(client):
 
     response = client.get('/')
