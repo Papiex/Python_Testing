@@ -20,7 +20,7 @@ def create_app(config={}):
     app = Flask(__name__)
     app.config.update(config)
     app.secret_key = "something_special"
-    if app.config["TESTING"] == True:
+    if app.config['TESTING'] == True or app.config['DEBUG'] == True:
         competitions = load_competitions("tests/competitions_test.json")
         clubs = load_clubs("tests/clubs_test.json")
     else:
