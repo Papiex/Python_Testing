@@ -1,12 +1,8 @@
 def test_should_purchase_place(client):
     """Test buying basic reservations"""
-<<<<<<< HEAD
-    response = client.post('/purchase_places', data = {
-=======
 
     place = 1
-    response = client.post('/purchasePlaces', data = {
->>>>>>> feature/cost-3-points
+    response = client.post('/purchase_places', data = {
       "club": "Simply Lift",
       "competition": "Spring Festival",
       "places": place
