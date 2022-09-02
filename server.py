@@ -92,7 +92,7 @@ def create_app(config={}):
                 int(competition["number_of_places"]) - places_required
             )
             club["points"] = int(club["points"]) - places_required * 3
-            flash(f"Great-booking complete! You have booking {places_required} places !")
+            flash("Great-booking complete!")
         return render_template(
             "welcome.html",
             club=club,
