@@ -1,12 +1,18 @@
 def test_should_purchase_place(client):
     """Test buying basic reservations"""
+<<<<<<< HEAD
     response = client.post('/purchase_places', data = {
+=======
+
+    place = 1
+    response = client.post('/purchasePlaces', data = {
+>>>>>>> feature/cost-3-points
       "club": "Simply Lift",
       "competition": "Spring Festival",
-      "places": 1
+      "places": place
     })
     assert response.status_code == 200
-    assert 'Great-booking complete!' in response.text
+    assert f'Great-booking complete! You have booking {place} places !' in response.text
 
 
 def test_should_not_enought_club_points(client):

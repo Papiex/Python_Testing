@@ -91,6 +91,7 @@ def create_app(config={}):
             competition["number_of_places"] = (
                 int(competition["number_of_places"]) - places_required
             )
+<<<<<<< HEAD
             club["points"] = int(club["points"]) - places_required * 3
             flash("Great-booking complete!")
         return render_template(
@@ -99,6 +100,16 @@ def create_app(config={}):
             competitions=competitions,
             date_string=date_string,
         )
+=======
+            club["points"] = int(club["points"]) - placesRequired * 3
+            flash(f"Great-booking complete! You have booking {placesRequired} places !")
+        return render_template("welcome.html", club=club, competitions=competitions, date_string=date_string)
+
+
+    @app.route('/displayBoard')
+    def displayBoard():
+        return render_template('board.html', clubs=clubs)
+>>>>>>> feature/cost-3-points
 
     @app.route("/display_board")
     def display_board():
